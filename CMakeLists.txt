@@ -17,7 +17,14 @@ add_library(bxdata SHARED
 target_include_directories(bxdata PUBLIC ${PROJECT_SOURCE_DIR})
 target_link_libraries(bxdata PUBLIC Bayeux::Bayeux)
 
-add_executable(bxdata-write bxdata-write.cc)
-target_link_libraries(bxdata-write PRIVATE bxdata Bayeux::Bayeux)
+add_executable(bxdata-example bxdata-example.cc)
+target_link_libraries(bxdata-example PRIVATE bxdata Bayeux::Bayeux)
 
-# end of CMakeLists.txt
+include(CTest)
+if(BUILD_TESTING)
+  file(MAKE_DIRECTORY ${PROJECT_BINARY_DIR}/tests/bxdata-example)
+  add_test(NAME bxdata-example
+    COMMAND bxdata-example
+    WORKING_DIRECTORY tests/bxdata-example)
+endif()
+

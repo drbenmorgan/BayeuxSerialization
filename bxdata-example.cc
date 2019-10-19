@@ -410,45 +410,22 @@ int main (int argc_, char ** argv_)
   int error_code = EXIT_SUCCESS;
   try {
     long prng_seed = 314159;
+    logging = datatools::logger::PRIO_DEBUG;
 
-    int iarg = 1;
-    while (iarg < argc_) {
-      std::string token = argv_[iarg];
-      if (token[0] == '-') {
-        std::string option = token;
-        if ((option == "-d") || (option == "--debug")) {
-          logging = datatools::logger::PRIO_DEBUG;
-        } else if ((option == "-v") || (option == "--verbose")) {
-          logging = datatools::logger::PRIO_INFORMATION;
-        } else  {
-          DT_LOG_WARNING(logging, "Ignoring option '" << option << "' !");
-        }
-      } else {
-        std::string argument = token;
-        DT_LOG_WARNING(logging, "Ignoring argument '" << argument << "' !");
-      }
-      iarg++;
-    }
-
-    DT_LOG_INFORMATION(logging, "Welcome to the datatools example program : ex_serializable_1");
+    DT_LOG_INFORMATION(logging, "Welcome to the datatools example program : bxdata-example");
 
     DT_LOG_DEBUG(logging, "Initialize the PRNG");
     srand48(prng_seed);
 
     ex_raw_hit_1(logging);
     ex_raw_hit_2(logging);
-
     ex_raw_hit_3(logging);
     ex_raw_hit_4(logging);
-
     ex_raw_hit_5(logging);
     ex_raw_hit_6(logging);
-
     ex_raw_hit_7(logging);
-
     ex_raw_hit_8(logging);
     ex_raw_hit_9(logging);
-
     DT_LOG_INFORMATION(logging, "The end.");
   } catch (std::exception & x) {
     DT_LOG_FATAL(logging, x.what());
