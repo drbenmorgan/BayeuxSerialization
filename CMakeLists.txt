@@ -8,4 +8,5 @@ include(CTest)
 find_package(Bayeux 3.4.0 REQUIRED)
 
 # projects
+add_subdirectory(sndata)
 add_subdirectory(example)
