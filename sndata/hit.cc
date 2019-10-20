@@ -7,7 +7,7 @@
 // system will use to map the type to a data block. Theoretically can
 // be anything you like, but cleanest and clearest to us the fully
 // qualified typename.
-DATATOOLS_SERIALIZATION_SERIAL_TAG_IMPLEMENTATION(sndata::core::hit, "sndata::core::hit")
+DATATOOLS_SERIALIZATION_IMPLEMENTATION(sndata::core::hit, "sndata::core::hit")
 
 // Remainder of class implementation follows
 

@@ -30,7 +30,7 @@ class hit : public datatools::i_serializable {
 
   // This macro expands to the needed declaration for
   // the i_serializable member constants and functions
-  DATATOOLS_SERIALIZATION_SERIAL_TAG_DECLARATION()
+  DATATOOLS_SERIALIZATION_DECLARATION()
 };
 
 } // namespace core
