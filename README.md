@@ -22,28 +22,6 @@ of `i_serializable` can be stored in `datatools::things`
 TODO: Can we serialize a type not inheriting from `i_serializable`? NB:
 look at Geomtools for example as that can serialize CLHEP objects.
 
-Minimal `i_serializable` structure is:
-
-```
-// foo.h
-namespace ns {
-class foo : public datatools::i_serializable {
-  DATATOOLS_SERIALIZATION_SERIAL_TAG_DECLARATION()
-};
-}
-
-// foo.cc
-#include "foo.h"
-DATATOOLS_SERIALIZATION_SERIAL_TAG_IMPLEMENTATION(ns::foo, "ns::foo")
-
-// other ns::foo implementation ...
-```
-
-This gets us to a compilable, constructible class which oddly can then
-be serialized, just with no data being there. This is likely due to the
-underlying serialization of i_serializable being used (slicing). In fact,
-the **correct** macros to use are:
-
 ```
 // foo.h
 namespace ns {
@@ -72,5 +50,26 @@ Undefined symbols for architecture x86_64:
 ld: symbol(s) not found for architecture x86_64
 ```
 
-So now need to implement the `serialize` member function. TODO: As an advanced document, show what
-the macros actually expand to.
+So now need to implement the `serialize` member function. TODO: As an advanced document, show what the macros actually expand to.
+
+Following the structure of Bayeux/Falaise, this tends to be separated
+out from the main class interface. Doesn't seem to be required, but
+gets close to the ROOT system of main interface (header/source), linkdef
+(no equivalent, handled through macros), and "dictionary".
+The latter in Bayeux is typically in two files:
+
+1. The ".ipp" files each of which defines the serialize member function
+   for the class (equivalent to ROOT's Streamer)
+2. The "boost_io/the_serializable" file, which implements (via macros)
+   instantiation of template specializations of serialize for each
+   archive type known to Bayeux. If the class requires "export" (see below)
+   , the appropriate macro is also here.
+
+"Export", that is, declaration of the BOOST_CLASS_EXPORT macro in the class
+header appears needed if and only if we want to add the class as a bank
+in datatools::things. Likely due to the need to hold/serialize the object
+via pointer-to-base-class (as described in the boost manual). If the
+class will never be a "first class" bank object, then looks like we can
+skip this step.
+
+TODO: Clear some macro simplification is possible here!!
