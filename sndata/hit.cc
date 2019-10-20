@@ -14,7 +14,7 @@ DATATOOLS_SERIALIZATION_IMPLEMENTATION(sndata::core::hit, "sndata::core::hit")
 namespace sndata {
 namespace core {
 
-hit::hit(int id, std::string type) : datatools::i_serializable(), id_{id}, type_{std::move(type)}{}
+hit::hit(int id, std::string type) : datatools::i_serializable(), id_{id}, type_{std::move(type)} {}
 
-} // namespace core
-} // namespace sndata
+}  // namespace core
+}  // namespace sndata

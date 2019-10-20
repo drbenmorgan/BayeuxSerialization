@@ -1,8 +1,8 @@
 #ifndef SNDATA_HIT_H
 #define SNDATA_HIT_H
 
-#include <string>
 #include <bayeux/datatools/i_serializable.h>
+#include <string>
 
 namespace sndata {
 // An additional namespace is added so that we can demonstrate how
@@ -33,8 +33,7 @@ class hit : public datatools::i_serializable {
   DATATOOLS_SERIALIZATION_DECLARATION()
 };
 
-} // namespace core
-} // namespace sndata
+}  // namespace core
+}  // namespace sndata
 
-#endif // SNDATA_HIT_H
-
+#endif  // SNDATA_HIT_H
