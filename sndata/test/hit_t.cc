@@ -29,3 +29,11 @@ TEST_CASE("Direct XML De/Serialization", "") {
                                     datatools::using_multiple_archives);
   serializer.store(h);
 }
+
+TEST_CASE("Schema version exists", "") {
+  // Must get value outside of require (see
+  // https://github.com/catchorg/Catch2/issues/1134)
+  // Just shows you can get current schema version
+  auto x = boost::serialization::version<sndata::core::hit>::value;
+  REQUIRE(x == 0);
+}

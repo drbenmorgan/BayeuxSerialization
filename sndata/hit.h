@@ -36,4 +36,11 @@ class hit : public datatools::i_serializable {
 }  // namespace core
 }  // namespace sndata
 
+// To handle schema evolution, we must define a version.
+// Must be outside the class declaration as adds code into the
+// boost::serialization namespace
+// Note that Boost limits the version to 8 bits (so up to 256 versions)
+// Should always start from zero, increment every time schema changes
+BOOST_CLASS_VERSION(sndata::core::hit, 0)
+
 #endif  // SNDATA_HIT_H

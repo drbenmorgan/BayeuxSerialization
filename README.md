@@ -73,3 +73,33 @@ class will never be a "first class" bank object, then looks like we can
 skip this step.
 
 TODO: Clear some macro simplification is possible here!!
+
+Add versioning is pretty straightforward, just add the macro in the class
+header after its declaration and in the global namespace (because it
+will expand to create a template specialization in the boost::serialization
+namespace)
+
+```
+// foo.h
+namespace ns {
+class foo : public datatools::i_serializable {
+  DATATOOLS_SERIALIZATION_DECLARATION()
+};
+}
+
+BOOST_CLASS_VERSION(ns::foo, 0)
+```
+
+Just increment the integer everytime the schema changes. NB: rules for
+what constitutes a schema change to be defined. Schema changes *must*
+be handled manually in the serialize member function in the .ipp file!
+
+In code, the schema version of any versioned serializable class can be
+extracted with:
+
+```c++
+int schemaVersion = boost::serialization::version<MyClass>::value;
+```
+
+NOTE: Boost limits schema versions to `0 < N < 256`, but should be more
+than enough!!
